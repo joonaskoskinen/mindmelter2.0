@@ -164,13 +164,48 @@ body {
 }
 
 .particles:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at center, transparent 0%, var(--bg-color) 70%);
+}
+
+/* Improve particle interaction */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  pointer-events: none;
+  opacity: 0;
+  animation: particle-animation 3s ease-in-out forwards;
+  will-change: transform; /* Optimize for animations */
+  transition: transform 0.3s ease-out; /* Smooth movement when repelled */
+  z-index: 0;
+}
+
+/* Add a hover effect for particles when cursor is nearby */
+.particle:hover {
+  background-color: var(--secondary-color);
+  box-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Create more particles for background */
+.background-particle {
+  position: fixed;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  opacity: 0.2;
+  pointer-events: none;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  z-index: 0;
+}
+
+.background-particle.repelled {
+  opacity: 0.5;
+  background-color: var(--secondary-color);
 }
 
 /* Header */
@@ -303,6 +338,46 @@ header {
   animation: pulse 3s infinite ease-in-out;
 }
 
+.brain-logo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.brain-logo svg {
+  width: 80%;
+  height: 80%;
+  filter: drop-shadow(0 0 10px rgba(var(--secondary-color-rgb), 0.7));
+  transition: transform var(--transition-speed);
+  stroke: var(--secondary-color);
+  stroke-width: 1.5;
+}
+
+.brain-logo:hover svg {
+  transform: scale(1.05) rotate(5deg);
+}
+
+/* Add a pulsing animation to the brain */
+@keyframes brainPulse {
+  0%,
+  100% {
+    stroke-width: 1.5;
+    filter: drop-shadow(0 0 10px rgba(var(--secondary-color-rgb), 0.7));
+  }
+  50% {
+    stroke-width: 2;
+    filter: drop-shadow(0 0 15px rgba(var(--secondary-color-rgb), 0.9));
+  }
+}
+
+.brain-logo svg {
+  animation: brainPulse 3s infinite ease-in-out;
+}
+
 h1 {
   font-size: 2.5rem;
   font-weight: 600;
@@ -393,7 +468,8 @@ h1 {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
     transform: scale(1);
   }
@@ -687,7 +763,8 @@ h1 {
   height: 100%;
   border-radius: 50%;
   cursor: pointer;
-  transition: filter var(--transition-speed), box-shadow var(--transition-speed), outline var(--transition-speed), transform var(--transition-speed);
+  transition: filter var(--transition-speed), box-shadow var(--transition-speed), outline var(--transition-speed),
+    transform var(--transition-speed);
   position: relative;
   z-index: 2;
 }
@@ -702,7 +779,7 @@ h1 {
 }
 
 .illusion::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -10px;
   left: -10px;
@@ -1674,13 +1751,4 @@ button {
     transform: translate3d(var(--x, 100px), var(--y, 100px), 0);
     opacity: 0;
   }
-}
-
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  pointer-events: none;
-  opacity: 0;
-  animation: particle-animation 3s ease-in-out forwards;
 }

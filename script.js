@@ -33,6 +33,7 @@ const MindMelter = (() => {
       close: "Sulje",
       settings: "Asetukset",
       countdown: "Valmistaudu...",
+      reactionTest: "Reaktiotesti",
 
       // Saavutukset
       achievement: "Saavutus avattu!",
@@ -62,6 +63,12 @@ const MindMelter = (() => {
       tutorialText:
         "Tässä testissä mitataan reaktioaikaasi. Odota, että illuusio muuttuu, ja klikkaa sitä mahdollisimman nopeasti muutoksen jälkeen. Älä klikkaa liian aikaisin!",
       tutorialKeyboard: "Voit myös käyttää välilyöntiä tai Enter-näppäintä klikkaamiseen.",
+      waitForChange: "Odota muutosta",
+      waitForChangeDesc: "Odota, että illuusio muuttuu. Älä klikkaa liian aikaisin!",
+      clickQuickly: "Klikkaa nopeasti",
+      clickQuicklyDesc: "Kun illuusio muuttuu, klikkaa sitä mahdollisimman nopeasti.",
+      seeResults: "Katso tuloksesi",
+      seeResultsDesc: "Testin jälkeen näet tuloksesi ja voit verrata niitä muihin.",
 
       // Historia
       historyBest: "Paras tulos",
@@ -77,6 +84,8 @@ const MindMelter = (() => {
     },
     en: {
       // General
+      title: "MindMelter - Reaction Test",
+      tagline: "Test your reaction time with visual illusions",
       start: "Start Test",
       clickWhenReady: "Click the illusion only when it changes!",
       clickNow: "Click now!",
@@ -106,6 +115,7 @@ const MindMelter = (() => {
       close: "Close",
       settings: "Settings",
       countdown: "Get ready...",
+      reactionTest: "Reaction Test",
 
       // Achievements
       achievement: "Achievement unlocked!",
@@ -135,6 +145,12 @@ const MindMelter = (() => {
       tutorialText:
         "This test measures your reaction time. Wait for the illusion to change, then click it as quickly as possible after the change. Don't click too early!",
       tutorialKeyboard: "You can also use the spacebar or Enter key to click.",
+      waitForChange: "Wait for the change",
+      waitForChangeDesc: "Wait for the illusion to change. Don't click too early!",
+      clickQuickly: "Click quickly",
+      clickQuicklyDesc: "When the illusion changes, click it as quickly as possible.",
+      seeResults: "See your results",
+      seeResultsDesc: "After the test, you'll see your results and can compare them to others.",
 
       // History
       historyBest: "Best result",
@@ -345,12 +361,18 @@ const MindMelter = (() => {
     // Alustetaan partikkelit
     initParticles()
 
+    // Add this after initParticles() in the init function
+    initParticleInteraction()
+
     // Näytetään päävalikko
     showView("main")
   }
 
   // Ladataan tallennetut asetukset
   function loadSavedSettings() {
+    // Add this to the loadSavedSettings function
+    state.lang = localStorage.getItem("mindMelterLang") || "fi"
+
     // Ladataan tallennetut tulokset
     try {
       state.savedResults = JSON.parse(localStorage.getItem("mindMelterResults") || "[]")
@@ -436,7 +458,7 @@ const MindMelter = (() => {
     }
   }
 
-  // Luodaan partikkeli
+  // Modify the createParticle function to add transition for smooth movement
   function createParticle() {
     if (!elements.particles) return
 
@@ -459,6 +481,7 @@ const MindMelter = (() => {
     particle.style.setProperty("--x", `${xDest}px`)
     particle.style.setProperty("--y", `${yDest}px`)
     particle.style.animationDelay = `${delay}s`
+    particle.style.transition = "transform 0.3s ease-out" // Add transition for smooth movement
 
     // Lisätään partikkeli
     elements.particles.appendChild(particle)
@@ -471,6 +494,57 @@ const MindMelter = (() => {
       },
       (delay + 3) * 1000,
     )
+  }
+
+  // Initialize cursor interaction with particles
+  function initParticleInteraction() {
+    let mouseX = 0
+    let mouseY = 0
+
+    // Track mouse position
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+    })
+
+    // Update particle positions based on mouse proximity
+    function updateParticles() {
+      const particles = document.querySelectorAll(".particle")
+      const repelRadius = 100 // Distance at which particles start to move away
+      const repelStrength = 0.5 // How strongly particles move away
+
+      particles.forEach((particle) => {
+        const rect = particle.getBoundingClientRect()
+        const particleX = rect.left + rect.width / 2
+        const particleY = rect.top + rect.height / 2
+
+        // Calculate distance between mouse and particle
+        const dx = particleX - mouseX
+        const dy = particleY - mouseY
+        const distance = Math.sqrt(dx * dx + dy * dy)
+
+        // If mouse is close enough, move particle away
+        if (distance < repelRadius) {
+          // Calculate repel force (stronger when closer)
+          const force = (repelRadius - distance) / repelRadius
+
+          // Calculate new position
+          const moveX = dx * force * repelStrength
+          const moveY = dy * force * repelStrength
+
+          // Apply movement with transform
+          particle.style.transform = `translate(${moveX}px, ${moveY}px)`
+        } else {
+          // Reset transform if mouse is far away
+          particle.style.transform = ""
+        }
+      })
+
+      requestAnimationFrame(updateParticles)
+    }
+
+    // Start the animation loop
+    updateParticles()
   }
 
   // Lisätään tapahtumankuuntelijat
@@ -838,6 +912,25 @@ const MindMelter = (() => {
   // Kielen vaihto
   function toggleLang() {
     state.lang = state.lang === "fi" ? "en" : "fi"
+
+    // Save language preference
+    localStorage.setItem("mindMelterLang", state.lang)
+
+    // Update HTML lang attribute for accessibility
+    document.documentElement.lang = state.lang
+
+    // Update page title
+    document.title = state.lang === "fi" ? "MindMelter - Reaktiotesti" : "MindMelter - Reaction Test"
+
+    // Update all elements with data-i18n attributes
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const key = element.getAttribute("data-i18n")
+      if (texts[state.lang][key]) {
+        element.textContent = texts[state.lang][key]
+      }
+    })
+
+    // Update other UI elements
     updateUI()
   }
 
@@ -1598,6 +1691,7 @@ const MindMelter = (() => {
   // Julkiset API:t
   return {
     init: init,
+    toggleLang: toggleLang,
   }
 })()
 

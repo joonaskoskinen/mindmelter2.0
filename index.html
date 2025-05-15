@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindMelter - Reaktiotesti</title>
+  <meta name="description" content="Testaa reaktioaikasi visuaalisilla illuusioilla">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://dummyimage.com/32x32/ff0080/ffffff&text=MM">
+  <!-- Open Graph metatagit -->
+  <meta property="og:title" content="MindMelter - Reaktiotesti">
+  <meta property="og:description" content="Testaa reaktioaikasi visuaalisilla illuusioilla">
+  <meta property="og:image" content="https://dummyimage.com/1200x630/ff0080/ffffff&text=MindMelter">
+  <meta property="og:url" content="https://mindmelter.example.com">
+  <meta property="og:type" content="website">
+</head>
+<body class="theme-neon">
+  <!-- Tausta-animaatio -->
+  <div class="stars"></div>
+  <div class="particles"></div>
+  
+  <header>
+    <div class="lang-switch" onclick="toggleLang()" role="button" tabindex="0" aria-label="Vaihda kieltä">🇫🇮 / 🇬🇧</div>
+    <button id="sound-toggle" class="sound-toggle" aria-label="Äänet päällä">🔊</button>
+    <button id="tutorial-button" class="tutorial-button" aria-label="Näytä ohje">Ohje</button>
+    <button id="settings-button" class="settings-button" aria-label="Asetukset">⚙️</button>
+  </header>
+  
+  <div id="app">
+    <!-- Päävalikko -->
+    <div id="main-menu" class="container">
+      <div class="logo-container">
+        <img src="https://dummyimage.com/120x120/ff0080/ffffff&text=MM" class="logo" alt="MindMelter Logo">
+        <div class="logo-glow"></div>
+      </div>
+      <h1>MindMelter</h1>
+      <p class="tagline">Testaa reaktioaikasi visuaalisilla illuusioilla</p>
+      
+      <!-- Päävalikko painikkeet -->
+      <div class="main-buttons">
+        <button id="start-button" class="main-button pulse-animation">
+          <span class="button-icon">⚡</span>
+          <span class="button-text">Aloita testi</span>
+        </button>
+        <button id="history-button" class="secondary-button">
+          <span class="button-icon">📊</span>
+          <span class="button-text">Historia</span>
+        </button>
+      </div>
+      
+      <!-- Ikäryhmän valinta -->
+      <div class="age-select-container">
+        <label id="age-select-label" for="age-select">Valitse ikäryhmäsi:</label>
+        <select id="age-select">
+          <option value="">-- Valitse --</option>
+        </select>
+      </div>
+      
+      <!-- Asetukset -->
+      <div id="settings-panel" class="settings-panel hidden">
+        <h3>Asetukset</h3>
+        <button id="close-settings-button" class="close-button">×</button>
+        
+        <!-- Teeman valinta -->
+        <div class="setting-group">
+          <label id="theme-label" for="theme-select">Teema:</label>
+          <div class="theme-options">
+            <button class="theme-option" data-theme="neon">
+              <div class="theme-preview neon-preview"></div>
+              <span>Neon</span>
+            </button>
+            <button class="theme-option" data-theme="dark">
+              <div class="theme-preview dark-preview"></div>
+              <span>Tumma</span>
+            </button>
+            <button class="theme-option" data-theme="light">
+              <div class="theme-preview light-preview"></div>
+              <span>Vaalea</span>
+            </button>
+            <button class="theme-option" data-theme="retro">
+              <div class="theme-preview retro-preview"></div>
+              <span>Retro</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Harjoitustila -->
+        <div class="setting-group toggle-group">
+          <input type="checkbox" id="practice-toggle" class="toggle-input">
+          <label for="practice-toggle" class="toggle-label">Harjoitustila</label>
+        </div>
+        
+        <!-- Saavutettavuusasetukset -->
+        <div id="accessibility-settings" class="accessibility-settings">
+          <h3 id="accessibility-title">Saavutettavuus</h3>
+          <div class="accessibility-options">
+            <div class="accessibility-option">
+              <input type="checkbox" id="accessibility-highContrast">
+              <label for="accessibility-highContrast">Korkea kontrasti</label>
+            </div>
+            <div class="accessibility-option">
+              <input type="checkbox" id="accessibility-largerText">
+              <label for="accessibility-largerText">Suurempi teksti</label>
+            </div>
+            <div class="accessibility-option">
+              <input type="checkbox" id="accessibility-reducedMotion">
+              <label for="accessibility-reducedMotion">Vähemmän animaatioita</label>
+            </div>
+            <div class="accessibility-option">
+              <input type="checkbox" id="accessibility-keyboardControls" checked>
+              <label for="accessibility-keyboardControls">Näppäimistöohjaus</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Reaktiotesti -->
+    <div id="test-container" class="container test-container hidden" aria-live="polite">
+      <div class="test-header">
+        <h2>Reaktiotesti</h2>
+        <div id="countdown">3</div>
+      </div>
+      <div class="illusion-container">
+        <!-- Illuusio tulee tähän -->
+      </div>
+      <p id="feedback-text" class="feedback-text" aria-live="assertive"></p>
+    </div>
+    
+    <!-- Edistymispalkki -->
+    <div class="progress-container hidden">
+      <div id="progress-bar" class="progress-bar"></div>
+      <div id="progress-text" class="progress-text">Testi 1/8</div>
+    </div>
+    
+    <!-- Tulosruutu -->
+    <div id="results-screen" class="container results-container hidden">
+      <div class="results-header">
+        <h2 id="thanks-text">Kiitos testaamisesta!</h2>
+        <div class="results-badge">
+          <div class="badge-icon">🏆</div>
+          <p id="final-average" class="badge-text"></p>
+        </div>
+      </div>
+      
+      <!-- Paras ja huonoin aika -->
+      <div class="time-highlights">
+        <div class="time-card best">
+          <div class="time-icon">⚡</div>
+          <div class="time-details">
+            <p class="time-label">Paras aika</p>
+            <p id="best-time" class="time-value"></p>
+          </div>
+        </div>
+        <div class="time-card worst">
+          <div class="time-icon">⏱️</div>
+          <div class="time-details">
+            <p class="time-label">Huonoin aika</p>
+            <p id="worst-time" class="time-value"></p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tuloskaavio -->
+      <div class="chart-container">
+        <canvas id="results-chart" width="400" height="200"></canvas>
+      </div>
+      
+      <!-- Yksityiskohtaiset tulokset -->
+      <div class="results-details">
+        <h3>Yksityiskohtaiset tulokset</h3>
+        <div id="results-detail" class="results-table-container"></div>
+      </div>
+      
+      <!-- Vertailu -->
+      <div class="comparison-section">
+        <h3 id="age-compare-title">Keskimääräiset vasteajat ikäryhmittäin:</h3>
+        <div id="compare-table" class="compare-table-container"></div>
+      </div>
+      
+      <!-- Toimintopainikkeet -->
+      <div class="action-buttons">
+        <button id="restart-button" class="action-button primary">
+          <span class="button-icon">🔄</span>
+          <span class="button-text">Testaa uudestaan</span>
+        </button>
+        <button id="save-button" class="action-button">
+          <span class="button-icon">💾</span>
+          <span class="button-text">Tallenna tuloksesi</span>
+        </button>
+        <button id="share-button" class="action-button">
+          <span class="button-icon">📤</span>
+          <span class="button-text">Jaa tuloksesi</span>
+        </button>
+      </div>
+      
+      <div class="donate-section">
+        <p id="donate-text">Haluatko tukea projektia?</p>
+        <a href="https://ko-fi.com/jomppe" target="_blank" id="donate-link" class="donate-button">
+          <span class="button-icon">☕</span>
+          <span class="button-text">Lahjoita Ko-fi:ssa</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Historia-ruutu -->
+  <div id="history-screen" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="history-title">Aiemmat tuloksesi</h2>
+        <button id="close-history-button" class="modal-close">×</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+      <div class="history-stats">
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-details">
+            <p class="stat-label">Paras tulos</p>
+            <p id="history-best" class="stat-value">0.00s</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-details">
+            <p class="stat-label">Keskiarvo</p>
+            <p id="history-average" class="stat-value">0.00s</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔢</div>
+          <div class="stat-details">
+            <p class="stat-label">Testejä</p>
+            <p id="history-count" class="stat-value">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tutoriaali-ruutu -->
+  <div id="tutorial-screen" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="tutorial-title">Ohje</h2>
+        <button id="close-tutorial-button" class="modal-close">×</button>
+      </div>
+      <div class="tutorial-content">
+        <p id="tutorial-text">Tässä testissä mitataan reaktioaikaasi. Odota, että illuusio muuttuu, ja klikkaa sitä mahdollisimman nopeasti muutoksen jälkeen. Älä klikkaa liian aikaisin!</p>
+        <div class="tutorial-steps">
+          <div class="tutorial-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Odota muutosta</h3>
+              <p>Odota, että illuusio muuttuu. Älä klikkaa liian aikaisin!</p>
+              <div class="step-illustration waiting"></div>
+            </div>
+          </div>
+          <div class="tutorial-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Klikkaa nopeasti</h3>
+              <p>Kun illuusio muuttuu, klikkaa sitä mahdollisimman nopeasti.</p>
+              <div class="step-illustration ready"></div>
+            </div>
+          </div>
+          <div class="tutorial-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Katso tuloksesi</h3>
+              <p>Testin jälkeen näet tuloksesi ja voit verrata niitä muihin.</p>
+              <div class="step-illustration results"></div>
+            </div>
+          </div>
+        </div>
+        <div class="keyboard-tip">
+          <div class="keyboard-icon">⌨️</div>
+          <p id="tutorial-keyboard">Voit myös käyttää välilyöntiä tai Enter-näppäintä klikkaamiseen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Saavutusilmoitukset -->
+  <div id="achievement-container" class="achievement-container"></div>
+  
+  <!-- Ilmoitukset -->
+  <div id="notification-container" class="notification-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1686 @@
+/* Perustyyli */
+:root {
+  --transition-speed: 0.3s;
+  --border-radius: 12px;
+  --shadow-strength: 0.2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Orbitron", sans-serif;
+  overflow-y: auto;
+  transition: background var(--transition-speed), color var(--transition-speed);
+  will-change: background, color;
+  min-height: 100vh;
+}
+
+/* Teemat */
+.theme-neon {
+  background: radial-gradient(circle at top, #0f0f2f 0%, #000 100%);
+  color: #fff;
+  --primary-color: #00ffff;
+  --primary-color-rgb: 0, 255, 255;
+  --secondary-color: #ff0080;
+  --secondary-color-rgb: 255, 0, 128;
+  --accent-color: #ffff00;
+  --accent-color-rgb: 255, 255, 0;
+  --bg-color: #000;
+  --card-bg: rgba(0, 0, 0, 0.7);
+  --card-border: rgba(0, 255, 255, 0.3);
+  --text-color: #fff;
+  --success-color: #00cc66;
+  --error-color: #ff3333;
+  --highlight-color: #ffff00;
+  --shadow-color: rgba(0, 255, 255, var(--shadow-strength));
+}
+
+.theme-dark {
+  background: #121212;
+  color: #eee;
+  --primary-color: #3d5afe;
+  --primary-color-rgb: 61, 90, 254;
+  --secondary-color: #651fff;
+  --secondary-color-rgb: 101, 31, 255;
+  --accent-color: #00e676;
+  --accent-color-rgb: 0, 230, 118;
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --card-border: rgba(61, 90, 254, 0.3);
+  --text-color: #eee;
+  --success-color: #00e676;
+  --error-color: #ff5252;
+  --highlight-color: #ffea00;
+  --shadow-color: rgba(61, 90, 254, var(--shadow-strength));
+}
+
+.theme-light {
+  background: #f5f5f5;
+  color: #333;
+  --primary-color: #2979ff;
+  --primary-color-rgb: 41, 121, 255;
+  --secondary-color: #d500f9;
+  --secondary-color-rgb: 213, 0, 249;
+  --accent-color: #00c853;
+  --accent-color-rgb: 0, 200, 83;
+  --bg-color: #f5f5f5;
+  --card-bg: #fff;
+  --card-border: rgba(41, 121, 255, 0.3);
+  --text-color: #333;
+  --success-color: #00c853;
+  --error-color: #d50000;
+  --highlight-color: #ffd600;
+  --shadow-color: rgba(41, 121, 255, var(--shadow-strength));
+}
+
+.theme-retro {
+  background: #2a2a2a url("https://www.transparenttextures.com/patterns/cartographer.png");
+  color: #f0f0f0;
+  --primary-color: #ff6b6b;
+  --primary-color-rgb: 255, 107, 107;
+  --secondary-color: #4ecdc4;
+  --secondary-color-rgb: 78, 205, 196;
+  --accent-color: #ffe66d;
+  --accent-color-rgb: 255, 230, 109;
+  --bg-color: #2a2a2a;
+  --card-bg: #3a3a3a;
+  --card-border: rgba(255, 107, 107, 0.3);
+  --text-color: #f0f0f0;
+  --success-color: #4ecdc4;
+  --error-color: #ff6b6b;
+  --highlight-color: #ffe66d;
+  --shadow-color: rgba(255, 107, 107, var(--shadow-strength));
+}
+
+/* Saavutettavuusasetukset */
+.a11y-highContrast {
+  --primary-color: #ffff00;
+  --primary-color-rgb: 255, 255, 0;
+  --secondary-color: #ffffff;
+  --secondary-color-rgb: 255, 255, 255;
+  --text-color: #ffffff;
+  --bg-color: #000000;
+  --card-bg: #000000;
+  --card-border: rgba(255, 255, 0, 0.5);
+  --success-color: #00ff00;
+  --error-color: #ff0000;
+  --highlight-color: #ffff00;
+  --shadow-color: rgba(255, 255, 0, var(--shadow-strength));
+}
+
+.a11y-largerText {
+  font-size: 120%;
+}
+
+.a11y-reducedMotion *,
+.reduce-animations * {
+  animation-duration: 0.001s !important;
+  transition-duration: 0.001s !important;
+}
+
+/* Tausta-animaatiot */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("https://raw.githubusercontent.com/Keepppo/stars-bg/main/stars.png") repeat;
+  z-index: 0;
+  opacity: 0.2;
+  animation: starScroll 60s linear infinite;
+}
+
+.theme-light .stars {
+  opacity: 0.05;
+}
+
+.theme-dark .stars {
+  opacity: 0.1;
+}
+
+@keyframes starScroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000px 1000px;
+  }
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particles:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, var(--bg-color) 70%);
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.sound-toggle,
+.tutorial-button,
+.settings-button {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  box-shadow: 0 0 10px var(--shadow-color);
+}
+
+.sound-toggle:hover,
+.tutorial-button:hover,
+.settings-button:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  transform: scale(1.05);
+}
+
+.sound-toggle:focus,
+.tutorial-button:focus,
+.settings-button:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.tutorial-button {
+  border-radius: 20px;
+  width: auto;
+  padding: 0 15px;
+}
+
+.lang-switch {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+  z-index: 100;
+  background-color: var(--card-bg);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--shadow-color);
+}
+
+.lang-switch:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  transform: scale(1.05);
+}
+
+.lang-switch:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Konttien perustyyli */
+.container {
+  position: relative;
+  text-align: center;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  z-index: 1;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px var(--shadow-color);
+  border: 1px solid var(--card-border);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.container:hover {
+  box-shadow: 0 0 30px var(--shadow-color);
+}
+
+/* Logo ja otsikko */
+.logo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(var(--secondary-color-rgb), 0.7));
+  transition: transform var(--transition-speed);
+}
+
+.logo:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.logo-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(var(--secondary-color-rgb), 0.5) 0%, transparent 70%);
+  filter: blur(10px);
+  z-index: 1;
+  animation: pulse 3s infinite ease-in-out;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.7);
+  letter-spacing: 2px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+/* Päävalikko */
+.main-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.main-button,
+.secondary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  font-family: "Orbitron", sans-serif;
+  box-shadow: 0 4px 10px rgba(var(--secondary-color-rgb), 0.3);
+}
+
+.main-button:hover,
+.secondary-button:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(var(--primary-color-rgb), 0.4);
+}
+
+.main-button:active,
+.secondary-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(var(--primary-color-rgb), 0.4);
+}
+
+.main-button:focus,
+.secondary-button:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.secondary-button {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  box-shadow: 0 4px 10px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.button-icon {
+  font-size: 1.3rem;
+}
+
+/* Pulssi-animaatio */
+.pulse-animation {
+  animation: buttonPulse 2s infinite;
+}
+
+@keyframes buttonPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--secondary-color-rgb), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--secondary-color-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--secondary-color-rgb), 0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Ikäryhmän valinta */
+.age-select-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.age-select-container label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+#age-select {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-family: "Orbitron", sans-serif;
+  cursor: pointer;
+  width: 200px;
+  text-align: center;
+  transition: all var(--transition-speed);
+}
+
+#age-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+#age-select:hover {
+  border-color: var(--secondary-color);
+}
+
+/* Asetuspaneeli */
+.settings-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  z-index: 1000;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--card-border);
+}
+
+.settings-panel h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.settings-panel .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all var(--transition-speed);
+}
+
+.settings-panel .close-button:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.2);
+}
+
+.setting-group {
+  margin-bottom: 25px;
+}
+
+.setting-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+/* Teemavalinnat */
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.theme-option {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: all var(--transition-speed);
+}
+
+.theme-option:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+
+.theme-option.active {
+  border-color: var(--primary-color);
+}
+
+.theme-preview {
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.neon-preview {
+  background: linear-gradient(to bottom right, #00ffff, #ff0080);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.dark-preview {
+  background: linear-gradient(to bottom right, #3d5afe, #651fff);
+}
+
+.light-preview {
+  background: linear-gradient(to bottom right, #2979ff, #d500f9);
+  border: 1px solid #eee;
+}
+
+.retro-preview {
+  background: linear-gradient(to bottom right, #ff6b6b, #4ecdc4);
+  background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+  background-size: 30px;
+}
+
+/* Toggle switch */
+.toggle-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  padding-left: 50px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 20px;
+  background-color: #444;
+  border-radius: 10px;
+  transition: background-color var(--transition-speed);
+}
+
+.toggle-label:after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform var(--transition-speed);
+}
+
+.toggle-input:checked + .toggle-label:before {
+  background-color: var(--primary-color);
+}
+
+.toggle-input:checked + .toggle-label:after {
+  transform: translateX(20px);
+}
+
+.toggle-input:focus + .toggle-label:before {
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* Saavutettavuusasetukset */
+.accessibility-settings {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--card-border);
+}
+
+.accessibility-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.accessibility-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accessibility-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+}
+
+/* Reaktiotesti */
+.test-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.test-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.test-header h2 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+#countdown {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(var(--accent-color-rgb), 0.1);
+  border: 2px solid var(--accent-color);
+}
+
+.illusion-container {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 20px auto;
+}
+
+.illusion {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: filter var(--transition-speed), box-shadow var(--transition-speed), outline var(--transition-speed), transform var(--transition-speed);
+  position: relative;
+  z-index: 2;
+}
+
+.illusion:hover {
+  transform: scale(1.02);
+}
+
+.illusion:focus {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+.illusion::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 60%, var(--card-bg) 100%);
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.feedback-text {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  min-height: 1.5em;
+  transition: color var(--transition-speed);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  display: inline-block;
+}
+
+/* Illuusiot */
+.illusion-grid {
+  background: linear-gradient(45deg, #fff 25%, transparent 25%) repeat,
+    linear-gradient(-45deg, #fff 25%, transparent 25%) repeat, linear-gradient(45deg, transparent 75%, #fff 75%) repeat,
+    linear-gradient(-45deg, transparent 75%, #fff 75%) repeat;
+  background-size: 40px 40px;
+  background-color: #111;
+  animation: gridMove 1.5s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 40px 40px, 40px 40px, 40px 40px, 40px 40px;
+  }
+}
+
+.illusion-spin {
+  background: repeating-conic-gradient(var(--secondary-color) 0% 25%, var(--primary-color) 25% 50%);
+  animation: spin 2s linear infinite;
+}
+
+.illusion-perspective {
+  background: radial-gradient(circle at center, #888 0%, #111 80%);
+  box-shadow: inset 0 0 30px #000, 0 0 20px rgba(var(--primary-color-rgb), 0.4);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.illusion-spiral {
+  background: repeating-conic-gradient(from 0deg, var(--primary-color) 0deg 10deg, #000 10deg 20deg);
+  animation: spin 3s linear infinite;
+}
+
+.illusion-wave {
+  background: linear-gradient(#000, #000);
+  position: relative;
+  overflow: hidden;
+}
+
+.illusion-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(45deg, var(--secondary-color), var(--primary-color) 20px);
+  opacity: 0.7;
+  animation: waveMove 3s ease-in-out infinite;
+}
+
+@keyframes waveMove {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.2);
+  }
+  50% {
+    transform: translateY(30px) scale(0.8);
+  }
+}
+
+.illusion-pulse {
+  background: conic-gradient(var(--secondary-color), var(--primary-color), var(--secondary-color));
+  position: relative;
+}
+
+.illusion-pulse::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulseOut 2s ease-in-out infinite;
+}
+
+@keyframes pulseOut {
+  0%,
+  100% {
+    width: 10%;
+    height: 10%;
+    opacity: 1;
+  }
+  50% {
+    width: 80%;
+    height: 80%;
+    opacity: 0;
+  }
+}
+
+.illusion-morph {
+  background: conic-gradient(var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
+  animation: morphing 4s ease-in-out infinite;
+}
+
+@keyframes morphing {
+  0%,
+  100% {
+    border-radius: 50%;
+    transform: rotate(0deg);
+  }
+  25% {
+    border-radius: 25% 75% 25% 75%;
+    transform: rotate(90deg);
+  }
+  50% {
+    border-radius: 75% 25% 75% 25%;
+    transform: rotate(180deg);
+  }
+  75% {
+    border-radius: 25% 75% 25% 75%;
+    transform: rotate(270deg);
+  }
+}
+
+.illusion-flicker {
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.illusion-flicker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, var(--primary-color) 0%, transparent 70%);
+  animation: flicker 3s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(0.9);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.illusion-color-shift {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  animation: colorShift 3s ease-in-out infinite;
+}
+
+@keyframes colorShift {
+  0%,
+  100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(180deg);
+  }
+}
+
+.illusion-zoom {
+  background: repeating-radial-gradient(
+    circle at center,
+    var(--primary-color) 0px,
+    var(--secondary-color) 20px,
+    var(--primary-color) 40px
+  );
+  animation: zoom 3s ease-in-out infinite;
+}
+
+@keyframes zoom {
+  0%,
+  100% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 200% 200%;
+  }
+}
+
+.illusion-ready {
+  filter: brightness(1.6);
+  box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color);
+  outline: 3px solid var(--primary-color);
+  animation-play-state: paused;
+}
+
+.illusion.clicked {
+  transform: scale(0.95);
+  filter: brightness(1.8);
+  box-shadow: 0 0 30px var(--primary-color), 0 0 60px var(--secondary-color);
+  transition: transform 0.2s, filter 0.2s, box-shadow 0.2s;
+}
+
+.illusion.too-early {
+  transform: scale(0.9);
+  filter: brightness(0.5);
+  box-shadow: 0 0 30px var(--error-color);
+  transition: transform 0.2s, filter 0.2s, box-shadow 0.2s;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Edistymispalkki */
+.progress-container {
+  width: 100%;
+  max-width: 600px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  margin: 15px auto;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  width: 0%;
+  transition: width 0.5s ease-out;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: var(--text-color);
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Tulosruutu */
+.results-container {
+  max-width: 700px;
+}
+
+.results-header {
+  margin-bottom: 30px;
+}
+
+.results-header h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.results-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  padding: 15px 25px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--primary-color);
+  margin: 0 auto;
+}
+
+.badge-icon {
+  font-size: 2.5rem;
+}
+
+.badge-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* Paras ja huonoin aika */
+.time-highlights {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.time-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.time-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.time-card.best {
+  border-left: 4px solid var(--success-color);
+}
+
+.time-card.worst {
+  border-left: 4px solid var(--error-color);
+}
+
+.time-icon {
+  font-size: 2rem;
+}
+
+.time-details {
+  text-align: left;
+}
+
+.time-label {
+  font-size: 0.9rem;
+  margin: 0 0 5px;
+  opacity: 0.8;
+}
+
+.time-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.best-time .time-value {
+  color: var(--success-color);
+}
+
+.worst-time .time-value {
+  color: var(--error-color);
+}
+
+/* Tuloskaavio */
+.chart-container {
+  margin: 30px 0;
+  padding: 20px;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--card-border);
+}
+
+/* Yksityiskohtaiset tulokset */
+.results-details,
+.comparison-section {
+  margin: 30px 0;
+  text-align: left;
+}
+
+.results-details h3,
+.comparison-section h3 {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.results-table-container,
+.compare-table-container {
+  overflow-x: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.results-table th,
+.results-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.results-table th {
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.results-table tr:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.highlight-row {
+  color: var(--highlight-color) !important;
+  background-color: rgba(var(--highlight-color-rgb), 0.1) !important;
+}
+
+.user-age-group {
+  color: var(--secondary-color) !important;
+  background-color: rgba(var(--secondary-color-rgb), 0.1) !important;
+}
+
+/* Toimintopainikkeet */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  font-family: "Orbitron", sans-serif;
+}
+
+.action-button:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+}
+
+.action-button:active {
+  transform: translateY(1px);
+}
+
+.action-button.primary {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
+
+.action-button.primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.action-button.success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: var(--bg-color);
+  animation: successPulse 1.5s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--success-color-rgb), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(var(--success-color-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--success-color-rgb), 0);
+  }
+}
+
+/* Lahjoitusosio */
+.donate-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--card-border);
+}
+
+.donate-section p {
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.donate-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #ff5f5f;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-speed);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.9rem;
+}
+
+.donate-button:hover {
+  background-color: #ff7878;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 95, 95, 0.3);
+  text-decoration: none;
+  color: white;
+}
+
+.donate-button:active {
+  transform: translateY(1px);
+}
+
+/* Modaali-ikkunat */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 0 30px rgba(var(--primary-color-rgb), 0.3);
+  position: relative;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all var(--transition-speed);
+}
+
+.modal-close:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* Historia */
+.history-list {
+  padding: 20px;
+  flex: 1;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.history-table th {
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.history-table tr:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.no-history {
+  text-align: center;
+  color: var(--text-color);
+  opacity: 0.5;
+  padding: 30px;
+  font-size: 1.1rem;
+}
+
+.history-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  border-top: 1px solid var(--card-border);
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.stat-details {
+  text-align: left;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--primary-color);
+}
+
+/* Tutoriaali */
+.tutorial-content {
+  padding: 20px;
+}
+
+.tutorial-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.tutorial-step {
+  display: flex;
+  gap: 20px;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h3 {
+  margin: 0 0 10px;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.step-content p {
+  margin: 0 0 15px;
+  opacity: 0.9;
+}
+
+.step-illustration {
+  height: 100px;
+  border-radius: var(--border-radius);
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-illustration.waiting::after {
+  content: "⏳";
+  font-size: 2rem;
+}
+
+.step-illustration.ready::after {
+  content: "⚡";
+  font-size: 2rem;
+  animation: pulse 1.5s infinite;
+}
+
+.step-illustration.results::after {
+  content: "📊";
+  font-size: 2rem;
+}
+
+.keyboard-tip {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: rgba(var(--accent-color-rgb), 0.1);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.keyboard-icon {
+  font-size: 1.5rem;
+}
+
+/* Saavutusilmoitukset */
+.achievement-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.achievement-notification {
+  background-color: var(--card-bg);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.5);
+  transform: translateX(120%);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 300px;
+}
+
+.achievement-notification.show {
+  transform: translateX(0);
+}
+
+.achievement-icon {
+  font-size: 2rem;
+}
+
+.achievement-content h3 {
+  margin: 0 0 5px 0;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.achievement-content p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Ilmoitukset */
+.notification-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 10px 20px;
+  box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: transform var(--transition-speed), opacity var(--transition-speed);
+}
+
+.notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Apuluokat */
+.hidden {
+  display: none !important;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Saavutettavuusparannukset */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+[role="button"],
+button {
+  cursor: pointer;
+}
+
+[aria-live="polite"],
+[aria-live="assertive"] {
+  min-height: 1em;
+}
+
+/* Responsiivisuus */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 20px;
+    max-width: calc(100% - 40px);
+  }
+
+  .settings-panel {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  .modal-content {
+    max-width: 95%;
+  }
+
+  .illusion {
+    width: 200px;
+    height: 200px;
+  }
+
+  .time-highlights {
+    flex-direction: column;
+  }
+
+  .tutorial-step {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .accessibility-options {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-options {
+    grid-template-columns: 1fr;
+  }
+
+  .history-stats {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  .illusion {
+    width: 180px;
+    height: 180px;
+  }
+
+  .results-badge {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .badge-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* Partikkelianimaatio */
+@keyframes particle-animation {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--x, 100px), var(--y, 100px), 0);
+    opacity: 0;
+  }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  pointer-events: none;
+  opacity: 0;
+  animation: particle-animation 3s ease-in-out forwards;
+}
